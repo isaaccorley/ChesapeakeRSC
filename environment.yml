@@ -1,0 +1,12 @@
+name: landcover
+dependencies:
+  - gdal
+  - python<3.11  # don't use the very latest version of python in case wheels aren't made for everything
+  - pip
+  - pip:
+    - torchgeo[datasets,docs,style,tests]>=0.5.0
+    - torch<2.1
+    - tensorboard>=2.14.1
+    - torch-tb-profiler
+    - einops
+    - gated-state-spaces-pytorch
