@@ -2,11 +2,11 @@
 
 Code and experiments for the paper, ["Seeing the Roads Through the Trees: A Benchmark for Modeling Spatial Dependencies with Aerial Imagery"]() which introduces the **Chesapeake Roads Spatial Context (RSC) dataset**.
 
-### Download
+## Download
 
 The dataset is available in HuggingFace Datasets and can be downloaded [here](https://huggingface.co/datasets/torchgeo/ChesapeakeRSC/)
 
-### ChesapeakeRSC
+## Dataset
 
 ![sample](./assets/sample.png)
 
