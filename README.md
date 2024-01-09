@@ -2,13 +2,13 @@
 
 Code and experiments for the paper, ["Seeing the Roads Through the Trees: A Benchmark for Modeling Spatial Dependencies with Aerial Imagery"]() which introduces the **Chesapeake Roads Spatial Context (RSC) dataset**.
 
-# Download
+### Download
 
 The dataset is available in HuggingFace Datasets and can be downloaded [here](https://huggingface.co/datasets/torchgeo/ChesapeakeRSC/)
 
-# ChesapeakeRSC
+### ChesapeakeRSC
 
-![](./assets/sample.png)
+![sample](./assets/sample.png)
 
 We introduce a novel remote sensing dataset for evaluating a geospatial machine learning model's ability to learn long range dependencies and spatial context understanding. We create a task to use as a proxy for this by training models to extract roads which have been broken into disjoint pieces due to tree canopy occluding large portions of the road.
 
