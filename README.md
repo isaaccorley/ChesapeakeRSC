@@ -8,7 +8,10 @@ The dataset is available in HuggingFace Datasets and can be downloaded [here](ht
 
 ## Dataset
 
-![sample](./assets/sample.png)
+<p align="center">
+    <img src="./assets/sample.png" width="800"/><br/>
+    <b>Figure 1.</b> Example images and labels from the dataset. Labels are shown over the corresponding NAIP aerial imagery with the "Road" class colored in blue and the "Tree Canopy over Road" class in red.
+</p>
 
 We introduce a novel remote sensing dataset for evaluating a geospatial machine learning model's ability to learn long range dependencies and spatial context understanding. We create a task to use as a proxy for this by training models to extract roads which have been broken into disjoint pieces due to tree canopy occluding large portions of the road.
 
