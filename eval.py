@@ -1,6 +1,6 @@
 import argparse
 import os
-from src.datasets import ChesapeakeSpatialReasoning
+from src.datasets import ChesapeakRSC
 from src.modules import CustomSemanticSegmentationTask
 import torch
 from torch.utils.data import DataLoader
@@ -39,7 +39,7 @@ def main(args):
 
     device = torch.device(f"cuda:{args.gpu}")
 
-    ds = ChesapeakeSpatialReasoning("data/ChesapeakeSpatialReasoning/", split=args.eval_set, differentiate_tree_canopy_over_roads=True, transforms=preprocess)
+    ds = ChesapeakRSC("data/ChesapeakRSC/", split=args.eval_set, differentiate_tree_canopy_over_roads=True, transforms=preprocess)
     dl = DataLoader(ds, batch_size=8, num_workers=6)
     if not args.quiet:
         dl = tqdm(dl)

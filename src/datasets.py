@@ -8,7 +8,7 @@ import numpy as np
 import fiona
 
 
-class ChesapeakeSpatialReasoning(NonGeoDataset):
+class ChesapeakRSC(NonGeoDataset):
 
     def __init__(self, root, split="train", differentiate_tree_canopy_over_roads=False, transforms=None):
         self.root = root

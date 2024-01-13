@@ -5,7 +5,7 @@ import warnings
 
 import lightning.pytorch as pl
 
-from src.datamodules import ChesapeakeSpatialReasoningDataModule
+from src.datamodules import ChesapeakRSCDataModule
 from src.modules import CustomSemanticSegmentationTask
 
 warnings.filterwarnings("ignore", category=UserWarning, module="torch.nn.functional")
@@ -76,7 +76,7 @@ def setup_argparse() -> argparse.ArgumentParser:
     parser.add_argument(
         "--root_dir",
         type=str,
-        default="./data/ChesapeakeSpatialReasoning/",
+        default="./data/ChesapeakRSC/",
         help="Root directory of the dataset.",
     )
     return parser
@@ -86,7 +86,7 @@ def main(args: argparse.Namespace) -> None:
     """Main training routine."""
     # torch.set_float32_matmul_precision('medium')
 
-    dm = ChesapeakeSpatialReasoningDataModule(
+    dm = ChesapeakRSCDataModule(
         root=args.root_dir,
         batch_size=args.batch_size,
         num_workers=8,

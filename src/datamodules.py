@@ -2,11 +2,11 @@ import kornia.augmentation as K
 from torchgeo.transforms import AugmentationSequential
 from torchgeo.datamodules.geo import NonGeoDataModule
 from torch.utils.data import random_split
-from .datasets import ChesapeakeSpatialReasoning
+from .datasets import ChesapeakRSC
 import torch
 
 
-class ChesapeakeSpatialReasoningDataModule(NonGeoDataModule):
+class ChesapeakRSCDataModule(NonGeoDataModule):
 
     mean = 0.0
     std = 255.0
@@ -18,7 +18,7 @@ class ChesapeakeSpatialReasoningDataModule(NonGeoDataModule):
         differentiate_tree_canopy_over_roads: bool = False,
         **kwargs
     ) -> None:
-        """Initialize a new ChesapeakeSpatialReasoningDataModule instance.
+        """Initialize a new DataModule instance.
 
         Args:
             batch_size: Size of each mini-batch.
@@ -28,7 +28,7 @@ class ChesapeakeSpatialReasoningDataModule(NonGeoDataModule):
             **kwargs: Additional keyword arguments passed to the
                 `NonGeoDataModule` constructor.
         """
-        super().__init__(ChesapeakeSpatialReasoning, batch_size, num_workers, **kwargs)
+        super().__init__(ChesapeakRSC, batch_size, num_workers, **kwargs)
         self.differentiate_tree_canopy_over_roads = differentiate_tree_canopy_over_roads
 
         augmentations = [
@@ -53,8 +53,8 @@ class ChesapeakeSpatialReasoningDataModule(NonGeoDataModule):
             stage: Either 'fit', 'validate', 'test', or 'predict'.
         """
         if stage in ["fit"]:
-            self.train_dataset = ChesapeakeSpatialReasoning(split="train", differentiate_tree_canopy_over_roads=self.differentiate_tree_canopy_over_roads, **self.kwargs)
+            self.train_dataset = ChesapeakRSC(split="train", differentiate_tree_canopy_over_roads=self.differentiate_tree_canopy_over_roads, **self.kwargs)
         if stage in ["fit", "validate"]:
-            self.val_dataset = ChesapeakeSpatialReasoning(split="val", differentiate_tree_canopy_over_roads=self.differentiate_tree_canopy_over_roads, **self.kwargs)
+            self.val_dataset = ChesapeakRSC(split="val", differentiate_tree_canopy_over_roads=self.differentiate_tree_canopy_over_roads, **self.kwargs)
         if stage in ["test"]:
-            self.test_dataset = ChesapeakeSpatialReasoning(split="test", differentiate_tree_canopy_over_roads=self.differentiate_tree_canopy_over_roads, **self.kwargs)
+            self.test_dataset = ChesapeakRSC(split="test", differentiate_tree_canopy_over_roads=self.differentiate_tree_canopy_over_roads, **self.kwargs)
