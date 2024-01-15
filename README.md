@@ -1,6 +1,6 @@
 # Chesapeake Roads Spatial Context (RSC)
 
-Code and experiments for the paper, ["Seeing the Roads Through the Trees: A Benchmark for Modeling Spatial Dependencies with Aerial Imagery"]() which introduces the **Chesapeake Roads Spatial Context (RSC) dataset**.
+Code and experiments for the paper, ["Seeing the Roads Through the Trees: A Benchmark for Modeling Spatial Dependencies with Aerial Imagery"](https://arxiv.org/abs/2401.06762), which introduces the **Chesapeake Roads Spatial Context (RSC) dataset**.
 
 ## Download
 
