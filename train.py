@@ -76,7 +76,7 @@ def setup_argparse() -> argparse.ArgumentParser:
     parser.add_argument(
         "--root_dir",
         type=str,
-        default="./data/ChesapeakRSC/",
+        default="./data/ChesapeakeRSC/",
         help="Root directory of the dataset.",
     )
     return parser
