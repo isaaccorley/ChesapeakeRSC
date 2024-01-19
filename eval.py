@@ -39,7 +39,7 @@ def main(args):
 
     device = torch.device(f"cuda:{args.gpu}")
 
-    ds = ChesapeakRSC("data/ChesapeakRSC/", split=args.eval_set, differentiate_tree_canopy_over_roads=True, transforms=preprocess)
+    ds = ChesapeakRSC("data/ChesapeakeRSC/", split=args.eval_set, differentiate_tree_canopy_over_roads=True, transforms=preprocess)
     dl = DataLoader(ds, batch_size=8, num_workers=6)
     if not args.quiet:
         dl = tqdm(dl)
