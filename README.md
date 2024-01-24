@@ -22,3 +22,16 @@ Models are trained to perform semantic segmentation to extract roads from the ba
 ### Reproducing the dataset
 
 We have included the `download_data.py` script that demonstrates how we created the aligned NAIP / land cover patches. This script uses the pre-sampled locations in `data/patches.gpkg` and the Maryland land cover dataset from [here](https://www.sciencebase.gov/catalog/item/633302d8d34e900e86c61f81) (it expects the `data/md_lc_2018_2022-Edition/md_lc_2018_2022-Edition.tif` to exist).
+
+## Citation
+
+If you use this dataset in your work please cite our paper:
+
+```
+@article{robinson2024seeing,
+  title={Seeing the roads through the trees: A benchmark for modeling spatial dependencies with aerial imagery},
+  author={Robinson, Caleb and Corley, Isaac and Ortiz, Anthony and Dodhia, Rahul and Ferres, Juan M Lavista and Najafirad, Peyman},
+  journal={arXiv preprint arXiv:2401.06762},
+  year={2024}
+}
+```
