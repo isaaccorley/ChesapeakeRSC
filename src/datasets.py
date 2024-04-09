@@ -1,16 +1,22 @@
-import torch
 import os
-import rasterio
+
+import fiona
 import matplotlib.pyplot as plt
+import numpy as np
+import rasterio
+import torch
 from matplotlib.colors import ListedColormap
 from torchgeo.datasets import NonGeoDataset
-import numpy as np
-import fiona
 
 
-class ChesapeakRSC(NonGeoDataset):
-
-    def __init__(self, root, split="train", differentiate_tree_canopy_over_roads=False, transforms=None):
+class ChesapeakeRSC(NonGeoDataset):
+    def __init__(
+        self,
+        root,
+        split="train",
+        differentiate_tree_canopy_over_roads=False,
+        transforms=None,
+    ):
         self.root = root
         self.differentiate_tree_canopy_over_roads = differentiate_tree_canopy_over_roads
         self.transforms = transforms
@@ -61,10 +67,7 @@ class ChesapeakRSC(NonGeoDataset):
 
             mask = torch.from_numpy(mask).long()
 
-        sample = {
-            "image": image,
-            "mask": mask
-        }
+        sample = {"image": image, "mask": mask}
 
         if self.transforms:
             sample = self.transforms(sample)
@@ -75,7 +78,6 @@ class ChesapeakRSC(NonGeoDataset):
         return len(self.image_fns)
 
     def plot(self, sample, show_titles=True, suptitle=None):
-
         img = sample["image"].numpy().transpose(1, 2, 0)
         mask = sample["mask"].numpy()
 
@@ -89,9 +91,17 @@ class ChesapeakRSC(NonGeoDataset):
 
         fig, axs = plt.subplots(1, n_cols, figsize=(width, 5))
         axs[0].imshow(img[:, :, :3])
-        axs[1].imshow(mask, vmin=0, vmax=self._cmap.N - 1, cmap=self._cmap, interpolation="none")
+        axs[1].imshow(
+            mask, vmin=0, vmax=self._cmap.N - 1, cmap=self._cmap, interpolation="none"
+        )
         if "prediction" in sample:
-            axs[2].imshow(prediction, vmin=0, vmax=self._cmap.N - 1, cmap=self._cmap, interpolation="none")
+            axs[2].imshow(
+                prediction,
+                vmin=0,
+                vmax=self._cmap.N - 1,
+                cmap=self._cmap,
+                interpolation="none",
+            )
         if show_titles:
             axs[0].set_title("Image")
             axs[1].set_title("Labels")

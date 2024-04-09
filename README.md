@@ -21,7 +21,60 @@ Models are trained to perform semantic segmentation to extract roads from the ba
 
 ### Reproducing the dataset
 
-We have included the `download_data.py` script that demonstrates how we created the aligned NAIP / land cover patches. This script uses the pre-sampled locations in `data/patches.gpkg` and the Maryland land cover dataset from [here](https://www.sciencebase.gov/catalog/item/633302d8d34e900e86c61f81) (it expects the `data/md_lc_2018_2022-Edition/md_lc_2018_2022-Edition.tif` to exist).
+We have included the `download_dataset.py` script that demonstrates how we created the aligned NAIP / land cover patches. This script uses the pre-sampled locations in `data/patches.gpkg` and the Maryland land cover dataset from [here](https://www.sciencebase.gov/catalog/item/633302d8d34e900e86c61f81) (it expects the `data/md_lc_2018_2022-Edition/md_lc_2018_2022-Edition.tif` to exist).
+
+### Training
+
+We provide a `train.py` script for reproducing experiments in the paper.
+
+See below for `train.py` usage and arguments:
+
+```bash
+usage: train.py [-h] [--batch_size BATCH_SIZE] [--model {deeplabv3+,fcn,custom_fcn,unet,unet++}] [--num_epochs NUM_EPOCHS]
+                [--num_filters NUM_FILTERS]
+                [--backbone {resnet18,resnet34,resnet50,resnet101,resnet152,resnext50_32x4d,resnext101_32x8d}] [--lr LR] [--tmax TMAX]
+                [--experiment_name EXPERIMENT_NAME] [--gpu_id GPU_ID] [--root_dir ROOT_DIR]
+
+Train a semantic segmentation model.
+
+options:
+  -h, --help            show this help message and exit
+  --batch_size BATCH_SIZE
+                        Size of each mini-batch.
+  --model {deeplabv3+,fcn,custom_fcn,unet,unet++}
+                        Model architecture to use.
+  --num_epochs NUM_EPOCHS
+                        Number of epochs to train for.
+  --num_filters NUM_FILTERS
+                        Number of filters to use with FCN models.
+  --backbone {resnet18,resnet34,resnet50,resnet101,resnet152,resnext50_32x4d,resnext101_32x8d}
+                        Backbone architecture to use.
+  --lr LR               Learning rate to use for training.
+  --tmax TMAX           Cycle size for cosine lr scheudler.
+  --experiment_name EXPERIMENT_NAME
+                        Name of the experiment to run.
+  --gpu_id GPU_ID       GPU ID to use (defaults to all GPUs if none).
+  --root_dir ROOT_DIR   Root directory of the dataset.
+```
+
+### Evaluation and figures
+
+We provide an `eval.py` script for evaluating a pretrained checkpoint on the test set. The `notebooks` directory contains jupyter notebooks for reproducing the figures.
+
+See below for `eval.py` usage and arguments:
+
+```bash
+usage: eval.py [-h] --model_fn MODEL_FN [--three_class] [--gpu GPU] [--eval_set {test,val}] [--quiet]
+
+options:
+  -h, --help            show this help message and exit
+  --model_fn MODEL_FN   Model checkpoint to load
+  --three_class         Whether to use three classes metrics
+  --gpu GPU             GPU to use for inference (default: 0)
+  --eval_set {test,val}
+                        Which set to run over
+  --quiet               Whether to use TQDM progress bar
+```
 
 ## Citation
 

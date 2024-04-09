@@ -149,15 +149,6 @@ class CustomSemanticSegmentationTask(SemanticSegmentationTask):
             self.model = CustomFCN(
                 in_channels=in_channels, classes=num_classes, num_filters=num_filters
             )
-        elif model == "s4d":
-            from .s4d import SequenceEncoder, S4DEncoder
-            encoder = S4DEncoder(depth=4, d_model=64, d_state=32)
-            self.model = SequenceEncoder(
-                dim=64,
-                channels=in_channels,
-                num_classes=num_classes,
-                encoder=encoder
-            )
         else:
             raise ValueError(
                 f"Model type '{model}' is not valid. "

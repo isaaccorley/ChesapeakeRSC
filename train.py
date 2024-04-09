@@ -5,7 +5,7 @@ import warnings
 
 import lightning.pytorch as pl
 
-from src.datamodules import ChesapeakRSCDataModule
+from src.datamodules import ChesapeakeRSCDataModule
 from src.modules import CustomSemanticSegmentationTask
 
 warnings.filterwarnings("ignore", category=UserWarning, module="torch.nn.functional")
@@ -86,7 +86,7 @@ def main(args: argparse.Namespace) -> None:
     """Main training routine."""
     # torch.set_float32_matmul_precision('medium')
 
-    dm = ChesapeakRSCDataModule(
+    dm = ChesapeakeRSCDataModule(
         root=args.root_dir,
         batch_size=args.batch_size,
         num_workers=8,
