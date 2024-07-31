@@ -1,12 +1,13 @@
-# Chesapeake Roads Spatial Context (RSC)
+<div align="center">
+<h2>Seeing the Roads Through the Trees: A Benchmark for Modeling Spatial Dependencies with Aerial Imagery</h2>
 
-Code and experiments for the paper, ["Seeing the Roads Through the Trees: A Benchmark for Modeling Spatial Dependencies with Aerial Imagery"](https://arxiv.org/abs/2401.06762), which introduces the **Chesapeake Roads Spatial Context (RSC) dataset**.
+[**Caleb Robinson**](https://www.microsoft.com/en-us/research/people/davrob/)<sup>1</sup> · [**Isaac Corley**](https://isaacc.dev/)<sup>2</sup> · [**Anthony Ortiz**](https://www.microsoft.com/en-us/research/people/anort/)<sup>1</sup> · [**Rahul Dodhia**](https://www.microsoft.com/en-us/research/people/radodhia/)<sup>1</sup> · [**Juan M. Lavista Ferres**](https://www.microsoft.com/en-us/research/people/jlavista/)<sup>1</sup> · [**Peyman Najafirad (Paul Rad)**](https://scholar.google.com/citations?user=uoCn8c8AAAAJ&hl=en)<sup>2</sup>
 
-## Download
+<sup>1</sup>Microsoft AI for Good Research Lab&emsp;&emsp;&emsp;&emsp;<sup>2</sup>University of Texas at San Antonio
 
-The dataset is available in HuggingFace Datasets and can be downloaded [here](https://huggingface.co/datasets/torchgeo/ChesapeakeRSC/)
-
-## Dataset
+<a href="https://arxiv.org/abs/2401.06762"><img src='https://img.shields.io/badge/arXiv-Seeing%20the%20Roads%20Through%20the%20Trees-red' alt='Paper PDF'></a>
+<a href='https://huggingface.co/datasets/torchgeo/ChesapeakeRSC/'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-ChesapeakeRSC%20Dataset-yellow'></a>
+</div>
 
 <p align="center">
     <img src="./assets/sample.png" width="800"/><br/>
