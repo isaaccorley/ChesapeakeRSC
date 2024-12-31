@@ -81,11 +81,14 @@ options:
 
 If you use this dataset in your work please cite our paper:
 
-```
-@article{robinson2024seeing,
-  title={Seeing the roads through the trees: A benchmark for modeling spatial dependencies with aerial imagery},
-  author={Robinson, Caleb and Corley, Isaac and Ortiz, Anthony and Dodhia, Rahul and Ferres, Juan M Lavista and Najafirad, Peyman},
-  journal={arXiv preprint arXiv:2401.06762},
-  year={2024}
+```bibtex
+@misc{robinson2024seeingroadstreesbenchmark,
+      title={Seeing the roads through the trees: A benchmark for modeling spatial dependencies with aerial imagery}, 
+      author={Caleb Robinson and Isaac Corley and Anthony Ortiz and Rahul Dodhia and Juan M. Lavista Ferres and Peyman Najafirad},
+      year={2024},
+      eprint={2401.06762},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2401.06762}, 
 }
 ```
