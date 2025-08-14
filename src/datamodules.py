@@ -1,6 +1,5 @@
 import kornia.augmentation as K
 from torchgeo.datamodules.geo import NonGeoDataModule
-from torchgeo.transforms import AugmentationSequential
 
 from .datasets import ChesapeakeRSC
 
@@ -29,19 +28,16 @@ class ChesapeakeRSCDataModule(NonGeoDataModule):
         super().__init__(ChesapeakeRSC, batch_size, num_workers, **kwargs)
         self.differentiate_tree_canopy_over_roads = differentiate_tree_canopy_over_roads
 
-        augmentations = [
+        self.train_aug = K.AugmentationSequential(
             K.Normalize(mean=self.mean, std=self.std),
             K.RandomRotation(p=0.5, degrees=90),
             K.RandomHorizontalFlip(p=0.5),
             K.RandomVerticalFlip(p=0.5),
-        ]
-
-        self.train_aug = AugmentationSequential(
-            *augmentations,
-            data_keys=["image", "mask"],
+            keepdim=True,
+            data_keys=None,
         )
-        self.aug = AugmentationSequential(
-            K.Normalize(mean=self.mean, std=self.std), data_keys=["image", "mask"]
+        self.aug = K.AugmentationSequential(
+            K.Normalize(mean=self.mean, std=self.std), keepdim=True, data_keys=None
         )
 
     def setup(self, stage: str) -> None:

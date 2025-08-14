@@ -1,14 +1,16 @@
 import argparse
 import os
-os.environ['PROJ_NETWORK'] = 'OFF'
 import warnings
 
-import lightning.pytorch as pl
+import torch
+import lightning
 
 from src.datamodules import ChesapeakeRSCDataModule
 from src.modules import CustomSemanticSegmentationTask
 
 warnings.filterwarnings("ignore", category=UserWarning, module="torch.nn.functional")
+
+torch.set_float32_matmul_precision('medium')
 
 
 def setup_argparse() -> argparse.ArgumentParser:
@@ -114,12 +116,13 @@ def main(args: argparse.Namespace) -> None:
     if args.gpu_id is not None:
         gpu_id = [args.gpu_id]
 
-    trainer = pl.Trainer(
+    trainer = lightning.Trainer(
         accelerator="gpu",
+        precision="16-mixed",
         devices=gpu_id,
         min_epochs=args.num_epochs,
         max_epochs=args.num_epochs,
-        log_every_n_steps=15,
+        log_every_n_steps=50,
         default_root_dir=experiment_name,
     )
 
