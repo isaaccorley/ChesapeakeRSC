@@ -20,6 +20,26 @@ The dataset consists of 30,000 RGBN [NAIP](https://naip-usdaonline.hub.arcgis.co
 
 Models are trained to perform semantic segmentation to extract roads from the background but are additionally evaluated by how they perform on the *"Tree Canopy Over Road"* class. Furthermore, we weight each *"Tree Canopy Over Road"* pixel based on the L1 distance to the nearest *"Road"* pixel resulting in a distance-weighted recall (DWR) metric which we propose as a better proxy for long range modeling performance.
 
+### Pretrained Model Checkpoints
+
+The U-Net ResNet-18 backbone pretrained model from the paper can be found on HuggingFace [here](https://huggingface.co/isaaccorley/chesapeakersc/blob/main/README.md) and can be loaded with the following code:
+
+```python
+import torch
+import torchvision.transforms.v2 as T
+import segmentation_models_pytorch as smp
+
+checkpoint = "unet-resnet18.pt"
+model = smp.Unet(
+    encoder_name="resnet18",
+    encoder_weights=None,
+    in_channels=4,
+    classes=2,
+)
+model.load_state_dict(checkpoint, map_location="cpu")
+transforms = torch.nn.Sequential(T.Normalize(mean=[0.0], std=[255.0]))
+```
+
 ### Reproducing the dataset
 
 We have included the `download_dataset.py` script that demonstrates how we created the aligned NAIP / land cover patches. This script uses the pre-sampled locations in `data/patches.gpkg` and the Maryland land cover dataset from [here](https://www.sciencebase.gov/catalog/item/633302d8d34e900e86c61f81) (it expects the `data/md_lc_2018_2022-Edition/md_lc_2018_2022-Edition.tif` to exist).
