@@ -3,10 +3,10 @@ import time
 import os
 
 import cv2
-import fiona
-import fiona.transform
+import geopandas as gpd
 import planetary_computer as pc
 import pystac_client
+from pyproj import Transformer
 import rasterio
 import rasterio.errors
 import rasterio.mask
@@ -37,11 +37,19 @@ def setup_argparse():
     return parser
 
 
+def _transform_geom(src_crs, dst_crs, geom):
+    """Transform a GeoJSON-like geometry dict from src_crs to dst_crs."""
+    shape = shapely.geometry.shape(geom)
+    transformer = Transformer.from_crs(src_crs, dst_crs, always_xy=True)
+    transformed = shapely.ops.transform(transformer.transform, shape)
+    return shapely.geometry.mapping(transformed)
+
+
 def get_image_from_window(bounds, src_crs):
 
     minx, miny, maxx, maxy = bounds
     geom = shapely.geometry.mapping(shapely.geometry.box(*bounds))
-    warped_geom = fiona.transform.transform_geom(src_crs, "EPSG:4326", geom)
+    warped_geom = _transform_geom(src_crs, "EPSG:4326", geom)
     search = CATALOG.search(
         collections=["naip"], intersects=warped_geom, datetime="2018-01-01/2018-12-31"
     )
@@ -61,7 +69,7 @@ def get_image_from_window(bounds, src_crs):
 
     dst_crs = best_item.properties["proj:epsg"]
     url = best_item.assets["image"].href
-    warped_geom = fiona.transform.transform_geom("EPSG:4326", dst_crs, warped_geom)
+    warped_geom = _transform_geom("EPSG:4326", dst_crs, warped_geom)
 
     with rasterio.open(url) as src:
         with WarpedVRT(src, crs=src_crs, resampling=Resampling.bilinear) as f:

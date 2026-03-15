@@ -21,7 +21,7 @@ def setup_argparse() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--model",
-        choices=["deeplabv3+", "fcn", "custom_fcn", "unet", "unet++"],
+        choices=["deeplabv3+", "fcn", "custom_fcn", "unet", "unet++", "segformer"],
         default="unet",
         help="Model architecture to use.",
     )
@@ -47,6 +47,12 @@ def setup_argparse() -> argparse.ArgumentParser:
             "resnet152",
             "resnext50_32x4d",
             "resnext101_32x8d",
+            "mit_b0",
+            "mit_b1",
+            "mit_b2",
+            "mit_b3",
+            "mit_b4",
+            "mit_b5",
         ],
         default="resnet50",
         help="Backbone architecture to use.",
@@ -81,6 +87,12 @@ def setup_argparse() -> argparse.ArgumentParser:
         default="./data/ChesapeakeRSC/",
         help="Root directory of the dataset.",
     )
+    parser.add_argument(
+        "--cutout",
+        choices=["small", "medium", "large", "multi"],
+        default=None,
+        help="Spatial cutout/erasing strategy for training augmentation.",
+    )
     return parser
 
 
@@ -93,6 +105,7 @@ def main(args: argparse.Namespace) -> None:
         batch_size=args.batch_size,
         num_workers=8,
         differentiate_tree_canopy_over_roads=False,
+        cutout=args.cutout,
     )
 
     task = CustomSemanticSegmentationTask(
