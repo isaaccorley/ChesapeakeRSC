@@ -1,6 +1,6 @@
 import os
 
-import fiona
+import geopandas as gpd
 import matplotlib.pyplot as plt
 import numpy as np
 import rasterio
@@ -35,16 +35,15 @@ class ChesapeakeRSC(NonGeoDataset):
         with open(os.path.join(root, f"{split}_idxs.txt")) as f:
             idxs = set(map(int, f.read().strip().split("\n")))
 
-        with fiona.open(os.path.join(root, "patches.gpkg")) as f:
-            for row in f:
-                idx = row["properties"]["idx"]
-                if idx not in idxs:
-                    continue
-                image_fn = os.path.join(root, "data", f"{idx}_image.tif")
-                mask_fn = os.path.join(root, "data", f"{idx}_mask.tif")
-                if os.path.exists(image_fn) and os.path.exists(mask_fn):
-                    self.image_fns.append(image_fn)
-                    self.mask_fns.append(mask_fn)
+        patches = gpd.read_file(os.path.join(root, "patches.gpkg"))
+        for idx in patches["idx"]:
+            if idx not in idxs:
+                continue
+            image_fn = os.path.join(root, "data", f"{idx}_image.tif")
+            mask_fn = os.path.join(root, "data", f"{idx}_mask.tif")
+            if os.path.exists(image_fn) and os.path.exists(mask_fn):
+                self.image_fns.append(image_fn)
+                self.mask_fns.append(mask_fn)
 
     def __getitem__(self, idx):
         image_fn = self.image_fns[idx]

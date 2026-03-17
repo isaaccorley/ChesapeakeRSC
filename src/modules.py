@@ -149,10 +149,18 @@ class CustomSemanticSegmentationTask(SemanticSegmentationTask):
             self.model = CustomFCN(
                 in_channels=in_channels, classes=num_classes, num_filters=num_filters
             )
+        elif model == "segformer":
+            self.model = smp.Segformer(
+                encoder_name=backbone,
+                encoder_weights="imagenet" if weights is True else None,
+                in_channels=in_channels,
+                classes=num_classes,
+            )
         else:
             raise ValueError(
                 f"Model type '{model}' is not valid. "
-                "Currently, only supports 'unet', 'deeplabv3+' and 'fcn'."
+                "Currently, only supports 'unet', 'deeplabv3+', 'fcn', "
+                "and 'segformer'."
             )
 
         if model != "fcn":
@@ -166,12 +174,12 @@ class CustomSemanticSegmentationTask(SemanticSegmentationTask):
                 self.model.encoder.load_state_dict(state_dict)
 
         # Freeze backbone
-        if self.hparams["freeze_backbone"] and model in ["unet", "deeplabv3+"]:
+        if self.hparams["freeze_backbone"] and model in ["unet", "deeplabv3+", "segformer"]:
             for param in self.model.encoder.parameters():
                 param.requires_grad = False
 
         # Freeze decoder
-        if self.hparams["freeze_decoder"] and model in ["unet", "deeplabv3+"]:
+        if self.hparams["freeze_decoder"] and model in ["unet", "deeplabv3+", "segformer"]:
             for param in self.model.decoder.parameters():
                 param.requires_grad = False
 

@@ -1,8 +1,10 @@
 import argparse
 import os
+
+import torch
+
 from src.datasets import ChesapeakeRSC
 from src.modules import CustomSemanticSegmentationTask
-import torch
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 import numpy as np
@@ -44,8 +46,17 @@ def main(args):
     if not args.quiet:
         dl = tqdm(dl)
 
-    task = CustomSemanticSegmentationTask.load_from_checkpoint(model_fn, map_location="cpu")
-    model = task.model.eval().to(device)
+    try:
+        task = CustomSemanticSegmentationTask.load_from_checkpoint(model_fn, map_location="cpu")
+        model = task.model.eval().to(device)
+    except (KeyError, RuntimeError):
+        # Raw state dict (not a Lightning checkpoint) — build model manually
+        import segmentation_models_pytorch as smp
+        model = smp.Unet(encoder_name="resnet18", encoder_weights=None,
+                         in_channels=4, classes=2)
+        state_dict = torch.load(model_fn, map_location="cpu", weights_only=False)
+        model.load_state_dict(state_dict)
+        model = model.eval().to(device)
 
     if args.three_class:
         cnf = np.zeros((3, 3), dtype=np.int64)
